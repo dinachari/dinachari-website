@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DINACHARI - ದಿನಚರಿ</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5faf5;color:#183329}
+header{background:#176b45;color:white;padding:22px;text-align:center}
+header h1{margin:0;font-size:30px}
+main{max-width:900px;margin:auto;padding:18px}
+.hero{padding:25px 5px}
+.hero h2{font-size:27px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:white;padding:18px;border-radius:14px;border:1px solid #ddd;text-align:center}
+.emoji{font-size:38px}
+.price{color:#176b45;font-weight:bold}
+button{background:#176b45;color:white;border:0;padding:12px 18px;border-radius:9px;font-size:15px}
+.panel{background:white;padding:18px;border-radius:14px;margin-top:22px}
+input,textarea,select{width:100%;padding:12px;margin:8px 0 14px;border:1px solid #ccc;border-radius:8px;font-size:15px}
+footer{text-align:center;padding:25px;color:#666}
+</style>
+</head>
+<body>
 
+<header>
+<h1>🌿 DINACHARI</h1>
+<p>ಪ್ರತಿದಿನದ ತಾಜಾ ಅಗತ್ಯಗಳು ನಿಮ್ಮ ಮನೆ ಬಾಗಿಲಿಗೆ</p>
+</header>
+
+<main>
+<section class="hero">
+<h2>ತಾಜಾ ಹಾಲು, ತರಕಾರಿ ಮತ್ತು ಹಣ್ಣುಗಳು</h2>
+<p>ರಾಜಾಜಿನಗರ, ಬೆಂಗಳೂರಿನಲ್ಲಿ ನಿಮ್ಮ ದಿನನಿತ್ಯದ ಅಗತ್ಯಗಳಿಗೆ ಒಂದೇ ತಾಣ.</p>
+<button onclick="document.getElementById('order').scrollIntoView()">Order Now</button>
+</section>
+
+<h2>ನಮ್ಮ ಉತ್ಪನ್ನಗಳು</h2>
+<div class="grid">
+<div class="card">
+<div class="emoji">🥛</div>
+<h3>ಹಾಲು</h3>
+<p class="price">Daily Milk</p>
+<button onclick="add('ಹಾಲು')">Add</button>
+</div>
+<div class="card">
+<div class="emoji">🥬</div>
+<h3>ತರಕಾರಿಗಳು</h3>
+<p class="price">Fresh Vegetables</p>
+<button onclick="add('ತರಕಾರಿಗಳು')">Add</button>
+</div>
+<div class="card">
+<div class="emoji">🍎</div>
+<h3>ಹಣ್ಣುಗಳು</h3>
+<p class="price">Fresh Fruits</p>
+<button onclick="add('ಹಣ್ಣುಗಳು')">Add</button>
+</div>
+<div class="card">
+<div class="emoji">🥚</div>
+<h3>ಮೊಟ್ಟೆಗಳು</h3>
+<p class="price">Daily Essentials</p>
+<button onclick="add('ಮೊಟ್ಟೆಗಳು')">Add</button>
+</div>
+</div>
+
+<div class="panel" id="order">
+<h2>ನಿಮ್ಮ ಆರ್ಡರ್</h2>
+<p id="cart">ಯಾವುದೇ ಉತ್ಪನ್ನ ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ.</p>
+
+<label>ನಿಮ್ಮ ಹೆಸರು</label>
+<input id="name" placeholder="ಹೆಸರು">
+
+<label>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label>
+<input id="phone" placeholder="ಮೊಬೈಲ್ ಸಂಖ್ಯೆ">
+
+<label>ವಿಳಾಸ</label>
+<textarea id="address" placeholder="ಮನೆ ವಿಳಾಸ"></textarea>
+
+<label>ಪಾವತಿ ವಿಧಾನ</label>
+<select id="payment">
+<option>UPI Payment</option>
+<option>Cash on Delivery</option>
+<option>Weekly Payment (Approval Required)</option>
+</select>
+
+<button onclick="sendOrder()">Submit Order</button>
+</div>
+
+<div class="panel">
+<h2>7 Days Credit Facility</h2>
+<p>ಅರ್ಹ ಗ್ರಾಹಕರಿಗೆ ವಾರದ ಖರೀದಿಯ ಬಿಲ್ ಅನ್ನು 7 ದಿನಗಳ ನಂತರ ಪಾವತಿಸುವ ವ್ಯವಸ್ಥೆ.</p>
+</div>
+</main>
+
+<footer>
+© 2026 DINACHARI | Freshness Every Day
+</footer>
+
+<script>
+let cart=[];
+function add(item){
+cart.push(item);
+document.getElementById('cart').innerText='Selected: '+cart.join(', ');
+}
+function sendOrder(){
+let n=document.getElementById('name').value;
+let p=document.getElementById('phone').value;
+let a=document.getElementById('address').value;
+if(!n||!p||!a||cart.length===0){
+alert('ದಯವಿಟ್ಟು ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ತುಂಬಿ ಮತ್ತು ಉತ್ಪನ್ನ ಆಯ್ಕೆ ಮಾಡಿ.');
+return;
+}
+alert('ನಿಮ್ಮ ವಿವರಗಳು ಸಿದ್ಧವಾಗಿವೆ. WhatsApp ಆರ್ಡರ್ ವ್ಯವಸ್ಥೆಯನ್ನು ಮುಂದಿನ ಹಂತದಲ್ಲಿ ಸಂಪರ್ಕಿಸುತ್ತೇವೆ.');
+}
+</script>
+</body>
+</html>
